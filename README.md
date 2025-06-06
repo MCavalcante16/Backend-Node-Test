@@ -2,11 +2,11 @@
 
 ## Project Overview
 
-Welcome to the interview project! This project is designed to assess your skills in building a backend API using Node and GraphQL.
+Welcome to the interview project! This project is designed to assess your skills in building a backend API using Node.
 
 ### Goals
 
-- Understand your proficiency with Node and GraphQL.
+- Understand your proficiency with Node.
 - Assess your ability to design and implement a scalable API.
 - Evaluate your coding practices and problem-solving approach.
 
