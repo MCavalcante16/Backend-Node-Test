@@ -6,10 +6,12 @@ import {
   Param,
   Put,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { Pokemon as PokemonModel } from '@prisma/client';
 import { PokemonService } from '../services/pokemon.service';
 import { UpdateOnePokemonDTO } from '../dto/UpdateOnePokemonDTO';
+import { FilterPokemonDto } from '../dto/filter-pokemon.dto';
 
 @Controller('pokemons')
 export class PokemonController {
@@ -23,8 +25,8 @@ export class PokemonController {
   }
 
   @Get()
-  async findAll(): Promise<PokemonModel[]> {
-    return this.pokemonService.findAll();
+  async findAll(@Query() filter: FilterPokemonDto): Promise<PokemonModel[]> {
+    return this.pokemonService.findAll(filter);
   }
 
   @Put(':id')

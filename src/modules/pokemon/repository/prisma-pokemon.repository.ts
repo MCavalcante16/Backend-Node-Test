@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { Pokemon } from '@prisma/client';
+import { Pokemon, Prisma, PrismaClient } from '@prisma/client';
 import { IPokemonRepository } from './pokemon.repository';
 import { PrismaService } from 'src/modules/prisma/prisma.service';
+import { IPokemonFilter } from '../filters/pokemon-filter.interface';
 
 @Injectable()
 export class PrismaPokemonRepository implements IPokemonRepository {
@@ -16,8 +17,21 @@ export class PrismaPokemonRepository implements IPokemonRepository {
     });
   }
 
-  async findAll(): Promise<Pokemon[]> {
-    return this.prisma.pokemon.findMany();
+  async findAll(filter?: IPokemonFilter): Promise<Pokemon[]> {
+    const where: Prisma.PokemonWhereInput = {};
+
+    if (filter) {
+      if (filter.name) {
+        where.name = { contains: filter.name };
+      }
+      if (filter.type) {
+        where.type = { equals: filter.type };
+      }
+    }
+
+    return this.prisma.pokemon.findMany({
+      where,
+    });
   }
 
   async findOne(id: number): Promise<Pokemon | null> {

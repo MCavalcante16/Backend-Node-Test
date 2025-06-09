@@ -6,7 +6,6 @@ import { ApolloServerPluginLandingPageLocalDefault } from "@apollo/server/plugin
 import { HelloModule } from "./modules/hello/hello.module";
 import { PrismaModule } from "./modules/prisma/prisma.module";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { PokemonController } from "./modules/pokemon/controllers/pokemon.controller";
 import { PokemonModule } from "./modules/pokemon/pokemon.module";
 
 @Module({
