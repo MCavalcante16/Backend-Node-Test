@@ -10,7 +10,7 @@ import {
 } from '@nestjs/common';
 import { Pokemon as PokemonModel } from '@prisma/client';
 import { PokemonService } from '../services/pokemon.service';
-import { UpdateOnePokemonDTO } from '../dto/UpdateOnePokemonDTO';
+import { UpdateOnePokemonDTO } from '../dto/update-pokemon.dto';
 import { FilterPokemonDto } from '../dto/filter-pokemon.dto';
 
 @Controller('pokemons')
