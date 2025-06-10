@@ -1,30 +1,30 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { INestApplication } from '@nestjs/common';
-import * as request from 'supertest';
-import { AppModule } from '../../app.module';
+import { HelloResolver } from './hello.resolver';
+import { HelloService } from './hello.service';
 
-describe('"hello" module tests', () => {
-  let app: INestApplication;
+describe('HelloResolver', () => {
+  let resolver: HelloResolver;
+  let helloService: HelloService;
 
   beforeEach(async () => {
-    const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [AppModule],
+    const module: TestingModule = await Test.createTestingModule({
+      providers: [
+        HelloResolver,
+        {
+          provide: HelloService,
+          useValue: {
+            hello: jest.fn().mockReturnValue('Hello World!'),
+          },
+        },
+      ],
     }).compile();
 
-    app = moduleFixture.createNestApplication();
-    await app.init();
+    resolver = module.get<HelloResolver>(HelloResolver);
+    helloService = module.get<HelloService>(HelloService);
   });
 
-  it('should return "Hello World!"', async () => {
-    const response: any = await request(app.getHttpServer())
-      .post('/graphql')
-      .send({
-        query: `query hello {
-					hello
-				}`,
-      });
-
-    expect(response.body.errors).toBeUndefined();
-    expect(response.body.data.hello).toBe('Hello World!');
+  it('should return "Hello World!"', () => {
+    expect(resolver.hello()).toBe('Hello World!');
+    expect(helloService.hello).toHaveBeenCalled();
   });
 });

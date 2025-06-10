@@ -87,4 +87,37 @@ describe('PrismaPokemonRepository', () => {
       });
     });
   });
+
+  describe('findOne', () => {
+    it('should find a Pokemon by ID', async () => {
+      const id = 1;
+      await repository.findOne(id);
+
+      expect(prisma.pokemon.findUnique).toHaveBeenCalledWith({
+        where: { id },
+      });
+    });
+  });
+
+  describe('findByName', () => {
+    it('should find a Pokemon by name', async () => {
+      const name = 'Pikachu';
+      await repository.findByName(name);
+
+      expect(prisma.pokemon.findUnique).toHaveBeenCalledWith({
+        where: { name },
+      });
+    });
+  });
+
+  describe('findByType', () => {
+    it('should find Pokemons by type', async () => {
+      const type = 'Electric';
+      await repository.findByType(type);
+
+      expect(prisma.pokemon.findMany).toHaveBeenCalledWith({
+        where: { type },
+      });
+    });
+  });
 });

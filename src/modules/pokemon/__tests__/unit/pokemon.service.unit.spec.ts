@@ -72,4 +72,16 @@ describe('PokemonService', () => {
       expect(mockRepository.remove).toHaveBeenCalledWith(id);
     });
   });
+
+  describe('findOne', () => {
+    it('should call repository.findOne', async () => {
+      const id = 1;
+      const mockPokemon = { id, name: 'Pikachu', type: 'Electric' };
+      mockRepository.findOne.mockResolvedValue(mockPokemon);
+
+      const result = await service.findOne(id);
+      expect(result).toEqual(mockPokemon);
+      expect(mockRepository.findOne).toHaveBeenCalledWith(id);
+    });
+  });
 });
