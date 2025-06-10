@@ -1,4 +1,4 @@
-import { Module } from "@nestjs/common";
+import { Module, ValidationPipe } from "@nestjs/common";
 import { GraphQLModule } from "@nestjs/graphql";
 import { ApolloDriver, ApolloDriverConfig } from "@nestjs/apollo";
 import { join } from "path";
@@ -7,6 +7,8 @@ import { HelloModule } from "./modules/hello/hello.module";
 import { PrismaModule } from "./modules/prisma/prisma.module";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { PokemonModule } from "./modules/pokemon/pokemon.module";
+import { APP_INTERCEPTOR, APP_PIPE } from "@nestjs/core";
+import { PrismaErrorInterceptor } from "./common/interceptors/prisma-error.interceptor";
 
 @Module({
   imports: [
@@ -31,6 +33,19 @@ import { PokemonModule } from "./modules/pokemon/pokemon.module";
     PokemonModule,
   ],
   controllers: [],
-  providers: [],
+  providers: [
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: PrismaErrorInterceptor
+    },
+    {
+      provide: APP_PIPE,
+      useValue: new ValidationPipe({
+        whitelist: true,
+        forbidNonWhitelisted: true,
+        transform: true,
+      }),
+    }
+  ],
 })
 export class AppModule {}
