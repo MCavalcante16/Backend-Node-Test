@@ -16,7 +16,7 @@ import { FilterPokemonDto } from '../dtos/filter-pokemon.dto';
 import { CreateOnePokemonDTO } from '../dtos/create-pokemon.dto';
 import { IPaginationResult } from '../../../common/interfaces/pagination.interface';
 import { PaginationDto } from '../../../common/dtos/pagination.dto';
-import { SortingDto } from 'src/common/dtos/sorting.dto';
+import { SortingDto } from '../../../common/dtos/sorting.dto';
 import { CacheInterceptor, CacheTTL } from '@nestjs/cache-manager';
 
 @Controller('pokemons')

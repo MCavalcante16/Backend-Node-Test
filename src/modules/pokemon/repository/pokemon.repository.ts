@@ -4,7 +4,7 @@ import {
   IPaginationOptions,
   IPaginationResult,
 } from '../../../common/interfaces/pagination.interface';
-import { SortingDto } from 'src/common/dtos/sorting.dto';
+import { SortingDto } from '../../../common/dtos/sorting.dto';
 
 export interface IPokemonRepository {
   create(data: { name: string; type: string }): Promise<Pokemon>;

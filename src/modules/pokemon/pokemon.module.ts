@@ -3,7 +3,7 @@ import { PokemonController } from './controllers/pokemon.controller';
 import { PokemonService } from './services/pokemon.service';
 import { PrismaPokemonRepository } from './repository/prisma-pokemon.repository';
 import { PrismaModule } from '../prisma/prisma.module';
-import { RedisCacheModule } from 'src/cache/cache.module';
+import { RedisCacheModule } from '../../cache/cache.module';
 
 @Module({
   controllers: [PokemonController],

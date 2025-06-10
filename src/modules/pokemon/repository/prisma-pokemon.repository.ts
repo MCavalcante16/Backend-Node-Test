@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { Pokemon, Prisma, PrismaClient } from '@prisma/client';
 import { IPokemonRepository } from './pokemon.repository';
-import { PrismaService } from 'src/modules/prisma/prisma.service';
+import { PrismaService } from '../../prisma/prisma.service';
 import { IPokemonFilter } from '../interfaces/pokemon-filter.interface';
 import { IPaginationOptions, IPaginationResult } from '../../../common/interfaces/pagination.interface';
-import { SortingDto } from 'src/common/dtos/sorting.dto';
+import { SortingDto } from '../../../common/dtos/sorting.dto';
 
 @Injectable()
 export class PrismaPokemonRepository implements IPokemonRepository {
