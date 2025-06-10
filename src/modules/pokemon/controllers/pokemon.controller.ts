@@ -12,6 +12,7 @@ import { Pokemon as PokemonModel } from '@prisma/client';
 import { PokemonService } from '../services/pokemon.service';
 import { UpdateOnePokemonDTO } from '../dto/update-pokemon.dto';
 import { FilterPokemonDto } from '../dto/filter-pokemon.dto';
+import { CreateOnePokemonDTO } from '../dto/create-pokemon.dto';
 
 @Controller('pokemons')
 export class PokemonController {
@@ -19,7 +20,7 @@ export class PokemonController {
 
   @Post()
   async create(
-    @Body() pokemonData: { name: string; type: string },
+    @Body() pokemonData: CreateOnePokemonDTO,
   ): Promise<PokemonModel> {
     return this.pokemonService.create(pokemonData);
   }
