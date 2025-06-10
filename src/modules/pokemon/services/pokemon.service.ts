@@ -3,6 +3,7 @@ import { Pokemon } from '@prisma/client';
 import { IPokemonRepository } from '../repository/pokemon.repository';
 import { IPokemonFilter } from '../interfaces/pokemon-filter.interface';
 import { IPaginationOptions, IPaginationResult } from '../../../common/interfaces/pagination.interface';
+import { SortingDto } from 'src/common/dtos/sorting.dto';
 
 @Injectable()
 export class PokemonService {
@@ -15,8 +16,8 @@ export class PokemonService {
     return this.pokemonRepository.create(data);
   }
 
-  async findAll(filter: IPokemonFilter, pagination?: IPaginationOptions): Promise<IPaginationResult<Pokemon>> {
-    return this.pokemonRepository.findAll(filter, pagination);
+  async findAll(filter: IPokemonFilter, pagination?: IPaginationOptions, sorting?: SortingDto): Promise<IPaginationResult<Pokemon>> {
+    return this.pokemonRepository.findAll(filter, pagination, sorting);
   }
 
   async findOne(id: number): Promise<Pokemon | null> {

@@ -4,6 +4,7 @@ import { IPokemonRepository } from './pokemon.repository';
 import { PrismaService } from 'src/modules/prisma/prisma.service';
 import { IPokemonFilter } from '../interfaces/pokemon-filter.interface';
 import { IPaginationOptions, IPaginationResult } from '../../../common/interfaces/pagination.interface';
+import { SortingDto } from 'src/common/dtos/sorting.dto';
 
 @Injectable()
 export class PrismaPokemonRepository implements IPokemonRepository {
@@ -21,6 +22,7 @@ export class PrismaPokemonRepository implements IPokemonRepository {
   async findAll(
     filter?: IPokemonFilter,
     pagination?: IPaginationOptions,
+    sorting?: SortingDto
   ): Promise<IPaginationResult<Pokemon>> {
     const { page = 1, limit = 10 } = pagination || {};
     const skip = (page - 1) * limit;
@@ -35,12 +37,19 @@ export class PrismaPokemonRepository implements IPokemonRepository {
       }
     }
 
+    const orderBy: Prisma.PokemonOrderByWithRelationInput = {};
+    if (sorting?.sortBy) {
+      orderBy[sorting.sortBy] = sorting.sortDirection;
+    } else {
+      orderBy.created_at = 'desc';
+    }
+
     const [items, total] = await Promise.all([
       this.prisma.pokemon.findMany({
         where,
         skip,
         take: limit,
-        orderBy: { created_at: 'desc' },
+        orderBy,
       }),
       this.prisma.pokemon.count({ where }),
     ]);

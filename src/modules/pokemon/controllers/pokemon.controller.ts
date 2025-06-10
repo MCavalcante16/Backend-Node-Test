@@ -15,6 +15,7 @@ import { FilterPokemonDto } from '../dtos/filter-pokemon.dto';
 import { CreateOnePokemonDTO } from '../dtos/create-pokemon.dto';
 import { IPaginationResult } from '../../../common/interfaces/pagination.interface';
 import { PaginationDto } from '../../../common/dtos/pagination.dto';
+import { SortingDto } from 'src/common/dtos/sorting.dto';
 
 @Controller('pokemons')
 export class PokemonController {
@@ -31,8 +32,9 @@ export class PokemonController {
   async findAll(
     @Query() filter: FilterPokemonDto,
     @Query() pagination: PaginationDto,
+    @Query() sorting: SortingDto
   ): Promise<IPaginationResult<Pokemon>> {
-    return this.pokemonService.findAll(filter, pagination);
+    return this.pokemonService.findAll(filter, pagination, sorting);
   }
 
   @Put(':id')
