@@ -11,6 +11,7 @@ import { APP_FILTER, APP_GUARD, APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
 import { PrismaErrorInterceptor } from './common/interceptors/prisma-error.interceptor';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { ThrottlerExceptionFilter } from './common/filters/throttler-exception.filter';
+import { RedisCacheModule } from './cache/cache.module';
 
 @Module({
   imports: [
@@ -39,6 +40,7 @@ import { ThrottlerExceptionFilter } from './common/filters/throttler-exception.f
         limit: 10,
       },
     ]),
+    RedisCacheModule
   ],
   controllers: [],
   providers: [

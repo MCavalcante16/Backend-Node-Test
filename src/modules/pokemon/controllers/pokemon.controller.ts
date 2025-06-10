@@ -7,6 +7,7 @@ import {
   Put,
   Delete,
   Query,
+  UseInterceptors,
 } from '@nestjs/common';
 import { Pokemon, Pokemon as PokemonModel } from '@prisma/client';
 import { PokemonService } from '../services/pokemon.service';
@@ -16,6 +17,7 @@ import { CreateOnePokemonDTO } from '../dtos/create-pokemon.dto';
 import { IPaginationResult } from '../../../common/interfaces/pagination.interface';
 import { PaginationDto } from '../../../common/dtos/pagination.dto';
 import { SortingDto } from 'src/common/dtos/sorting.dto';
+import { CacheInterceptor, CacheTTL } from '@nestjs/cache-manager';
 
 @Controller('pokemons')
 export class PokemonController {
@@ -29,6 +31,8 @@ export class PokemonController {
   }
 
   @Get()
+  @UseInterceptors(CacheInterceptor)
+  @CacheTTL(60)
   async findAll(
     @Query() filter: FilterPokemonDto,
     @Query() pagination: PaginationDto,
