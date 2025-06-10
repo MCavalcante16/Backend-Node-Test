@@ -1,5 +1,5 @@
 import { IsOptional, IsString } from 'class-validator';
-import { IPokemonFilter } from '../filters/pokemon-filter.interface';
+import { IPokemonFilter } from '../interfaces/pokemon-filter.interface';
 
 export class FilterPokemonDto implements IPokemonFilter {
   @IsOptional()

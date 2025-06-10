@@ -8,11 +8,13 @@ import {
   Delete,
   Query,
 } from '@nestjs/common';
-import { Pokemon as PokemonModel } from '@prisma/client';
+import { Pokemon, Pokemon as PokemonModel } from '@prisma/client';
 import { PokemonService } from '../services/pokemon.service';
-import { UpdateOnePokemonDTO } from '../dto/update-pokemon.dto';
-import { FilterPokemonDto } from '../dto/filter-pokemon.dto';
-import { CreateOnePokemonDTO } from '../dto/create-pokemon.dto';
+import { UpdateOnePokemonDTO } from '../dtos/update-pokemon.dto';
+import { FilterPokemonDto } from '../dtos/filter-pokemon.dto';
+import { CreateOnePokemonDTO } from '../dtos/create-pokemon.dto';
+import { IPaginationResult } from '../../../common/interfaces/pagination.interface';
+import { PaginationDto } from '../../../common/dtos/pagination.dto';
 
 @Controller('pokemons')
 export class PokemonController {
@@ -26,8 +28,11 @@ export class PokemonController {
   }
 
   @Get()
-  async findAll(@Query() filter: FilterPokemonDto): Promise<PokemonModel[]> {
-    return this.pokemonService.findAll(filter);
+  async findAll(
+    @Query() filter: FilterPokemonDto,
+    @Query() pagination: PaginationDto,
+  ): Promise<IPaginationResult<Pokemon>> {
+    return this.pokemonService.findAll(filter, pagination);
   }
 
   @Put(':id')
