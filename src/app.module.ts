@@ -42,7 +42,7 @@ import { PrismaErrorInterceptor } from "./common/interceptors/prisma-error.inter
       provide: APP_PIPE,
       useValue: new ValidationPipe({
         whitelist: true,
-        forbidNonWhitelisted: true,
+        forbidNonWhitelisted: false,
         transform: true,
       }),
     }
